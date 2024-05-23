@@ -1,0 +1,8 @@
+query GetTokens {
+  tokens {
+    id
+    symbol
+    name
+    decimals
+  }
+}

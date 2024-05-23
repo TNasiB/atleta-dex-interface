@@ -1,0 +1,22 @@
+query GetPools {
+  pools(first: 20) {
+    token0 {
+      name
+      decimals
+      symbol
+      id
+    }
+
+    token1 {
+      name
+      decimals
+      symbol
+      id
+    }
+
+    feesUSD
+
+    feeTier
+    id
+  }
+}

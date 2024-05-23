@@ -1,0 +1,14 @@
+query GetMyNftPositions($origin: Bytes!) {
+  mints(first: 10, where: { origin: $origin }) {
+    id
+    owner
+    amount0
+    sender
+    token0 {
+      symbol
+    }
+    token1 {
+      symbol
+    }
+  }
+}
