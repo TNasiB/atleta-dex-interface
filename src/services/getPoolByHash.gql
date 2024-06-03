@@ -1,0 +1,5 @@
+query GetPoolByHash($hash: ID!) {
+  pool(id: $hash) {
+    id
+  }
+}

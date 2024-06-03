@@ -2,11 +2,24 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never }
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K]
+}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never }
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
+    }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string }
@@ -606,11 +619,15 @@ export type Factory_Filter = {
   totalValueLockedETHUntracked?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETHUntracked_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETHUntracked_gte?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedETHUntracked_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedETHUntracked_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedETHUntracked_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETHUntracked_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETHUntracked_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedETHUntracked_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedETHUntracked_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedETH_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETH_gte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedETH_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
@@ -622,11 +639,15 @@ export type Factory_Filter = {
   totalValueLockedUSDUntracked?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gte?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSDUntracked_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSD_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_gte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
@@ -1923,7 +1944,9 @@ export type Pool_Filter = {
   totalValueLockedToken0_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken0_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken0_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedToken0_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedToken0_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedToken1?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken1_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken1_gte?: InputMaybe<Scalars['BigDecimal']['input']>
@@ -1931,16 +1954,22 @@ export type Pool_Filter = {
   totalValueLockedToken1_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken1_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedToken1_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedToken1_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedToken1_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSD?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gte?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSDUntracked_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSD_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_gte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
@@ -3599,11 +3628,15 @@ export type Token_Filter = {
   totalValueLockedUSDUntracked?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_gte?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSDUntracked_lt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_lte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSDUntracked_not?: InputMaybe<Scalars['BigDecimal']['input']>
-  totalValueLockedUSDUntracked_not_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
+  totalValueLockedUSDUntracked_not_in?: InputMaybe<
+    Array<Scalars['BigDecimal']['input']>
+  >
   totalValueLockedUSD_gt?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_gte?: InputMaybe<Scalars['BigDecimal']['input']>
   totalValueLockedUSD_in?: InputMaybe<Array<Scalars['BigDecimal']['input']>>
@@ -3656,7 +3689,9 @@ export type Token_Filter = {
   whitelistPools_contains_nocase?: InputMaybe<Array<Scalars['String']['input']>>
   whitelistPools_not?: InputMaybe<Array<Scalars['String']['input']>>
   whitelistPools_not_contains?: InputMaybe<Array<Scalars['String']['input']>>
-  whitelistPools_not_contains_nocase?: InputMaybe<Array<Scalars['String']['input']>>
+  whitelistPools_not_contains_nocase?: InputMaybe<
+    Array<Scalars['String']['input']>
+  >
 }
 
 export enum Token_OrderBy {
@@ -3945,6 +3980,15 @@ export type GetMyNftPositionsQuery = {
   }>
 }
 
+export type GetPoolByHashQueryVariables = Exact<{
+  hash: Scalars['ID']['input']
+}>
+
+export type GetPoolByHashQuery = {
+  __typename?: 'Query'
+  pool?: { __typename?: 'Pool'; id: string } | null
+}
+
 export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetPoolsQuery = {
@@ -3954,8 +3998,20 @@ export type GetPoolsQuery = {
     feesUSD: any
     feeTier: any
     id: string
-    token0: { __typename?: 'Token'; name: string; decimals: any; symbol: string; id: string }
-    token1: { __typename?: 'Token'; name: string; decimals: any; symbol: string; id: string }
+    token0: {
+      __typename?: 'Token'
+      name: string
+      decimals: any
+      symbol: string
+      id: string
+    }
+    token1: {
+      __typename?: 'Token'
+      name: string
+      decimals: any
+      symbol: string
+      id: string
+    }
   }>
 }
 
@@ -3963,7 +4019,13 @@ export type GetTokensQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetTokensQuery = {
   __typename?: 'Query'
-  tokens: Array<{ __typename?: 'Token'; id: string; symbol: string; name: string; decimals: any }>
+  tokens: Array<{
+    __typename?: 'Token'
+    id: string
+    symbol: string
+    name: string
+    decimals: any
+  }>
 }
 
 export const GetMyNftPositionsDocument = {
@@ -3976,8 +4038,14 @@ export const GetMyNftPositionsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'origin' } },
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Bytes' } } }
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'origin' }
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Bytes' } }
+          }
         }
       ],
       selectionSet: {
@@ -3987,7 +4055,11 @@ export const GetMyNftPositionsDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'mints' },
             arguments: [
-              { kind: 'Argument', name: { kind: 'Name', value: 'first' }, value: { kind: 'IntValue', value: '10' } },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'first' },
+                value: { kind: 'IntValue', value: '10' }
+              },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
@@ -3997,7 +4069,10 @@ export const GetMyNftPositionsDocument = {
                     {
                       kind: 'ObjectField',
                       name: { kind: 'Name', value: 'origin' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'origin' } }
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'origin' }
+                      }
                     }
                   ]
                 }
@@ -4015,7 +4090,9 @@ export const GetMyNftPositionsDocument = {
                   name: { kind: 'Name', value: 'token0' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'symbol' } }]
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } }
+                    ]
                   }
                 },
                 {
@@ -4023,7 +4100,9 @@ export const GetMyNftPositionsDocument = {
                   name: { kind: 'Name', value: 'token1' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'symbol' } }]
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } }
+                    ]
                   }
                 }
               ]
@@ -4033,7 +4112,55 @@ export const GetMyNftPositionsDocument = {
       }
     }
   ]
-} as unknown as DocumentNode<GetMyNftPositionsQuery, GetMyNftPositionsQueryVariables>
+} as unknown as DocumentNode<
+  GetMyNftPositionsQuery,
+  GetMyNftPositionsQueryVariables
+>
+export const GetPoolByHashDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetPoolByHash' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'hash' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pool' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'hash' }
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<GetPoolByHashQuery, GetPoolByHashQueryVariables>
 export const GetPoolsDocument = {
   kind: 'Document',
   definitions: [
@@ -4047,9 +4174,6 @@ export const GetPoolsDocument = {
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'pools' },
-            arguments: [
-              { kind: 'Argument', name: { kind: 'Name', value: 'first' }, value: { kind: 'IntValue', value: '20' } }
-            ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
@@ -4060,8 +4184,14 @@ export const GetPoolsDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'decimals' }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'symbol' }
+                      },
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } }
                     ]
                   }
@@ -4073,8 +4203,14 @@ export const GetPoolsDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'decimals' }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'symbol' }
+                      },
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } }
                     ]
                   }

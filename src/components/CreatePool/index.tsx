@@ -1,64 +1,67 @@
-"use client";
+'use client'
 
-import { Token } from "@atleta-chain/sdk-core";
-import { Button, Radio, RadioCards, Select, TextField } from "@radix-ui/themes";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Token } from '@atleta-chain/sdk-core'
+import { Button, Radio, RadioCards, Select, TextField } from '@radix-ui/themes'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
-import { SEPOLIA_POSITION_MANAGER_ADDRESS } from "@/config/addreses";
-import { FEES } from "@/config/fees";
-import { TOKENS } from "@/config/tokens";
-import { useApprove } from "@/hooks/useApprove";
-import { useCreatePosition } from "@/hooks/useCreatePosition";
+import { SEPOLIA_POSITION_MANAGER_ADDRESS } from '@/config/addreses'
+import { FEES } from '@/config/fees'
+import { TOKENS } from '@/config/tokens'
+import { useApprove } from '@/hooks/useApprove'
+import { useCreatePosition } from '@/hooks/useCreatePosition'
 
-import S from "./createPool.module.scss";
-import { parseEther } from "viem";
+import S from './createPool.module.scss'
 
 type CreatePoolDto = {
-  amountA: { token: Token; value: string };
-  amountB: { token: Token; value: string };
-  fee: (typeof FEES)[number];
-  minPrice: string;
-  maxPrice: string;
-};
+  amountA: { token: Token; value: string }
+  amountB: { token: Token; value: string }
+  fee: (typeof FEES)[number]
+  minPrice: string
+  maxPrice: string
+}
 
 const CreatePool = () => {
-  const { control, register, watch, getValues, handleSubmit } = useForm<CreatePoolDto>({
-    defaultValues: {
-      amountA: { token: TOKENS[0], value: "0" },
-      amountB: { token: TOKENS[1], value: "0" },
-      fee: 10000,
-    },
-  });
+  const { control, register, watch, getValues, handleSubmit } =
+    useForm<CreatePoolDto>({
+      defaultValues: {
+        amountA: { token: TOKENS[1], value: '0' },
+        amountB: { token: TOKENS[2], value: '0' },
+        fee: 10000
+      }
+    })
 
-  const amountA = watch("amountA");
-  const amountB = watch("amountB");
+  const amountA = watch('amountA')
+  const amountB = watch('amountB')
 
-  const { needApprove: needApproveA, approve: approveA } = useApprove({
+  const {
+    needApprove: needApproveA,
+    approve: approveA,
+    loading: loadingA
+  } = useApprove({
     amount: amountA,
-    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS,
-  });
-  const { needApprove: needApproveB, approve: approveB } = useApprove({
+    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS
+  })
+  const {
+    needApprove: needApproveB,
+    approve: approveB,
+    loading: loadingB
+  } = useApprove({
     amount: amountB,
-    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS,
-  });
+    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS
+  })
 
-  const [_, setTokenCurrency] = useState<Token>(getValues("amountA.token"));
-  const { createPosition, loading } = useCreatePosition();
+  const [_, setTokenCurrency] = useState<Token>(getValues('amountA.token'))
+  const { createPosition, loading } = useCreatePosition()
 
-  const handleCreatePosition = handleSubmit(async (data) => {
-    // await approveA();
-
-    // await approveB();
-
+  const handleCreatePosition = handleSubmit(async data => {
+    await approveA()
     await createPosition({
-      amount1: data.amountA.value,
-      amount2: data.amountB.value,
-      token1: data.amountA.token,
-      token2: data.amountB.token,
-      fee: data.fee,
-    });
-  });
+      token1: data.amountA,
+      token2: data.amountB,
+      fee: data.fee
+    })
+  })
 
   return (
     <div className={S.createPool}>
@@ -72,14 +75,16 @@ const CreatePool = () => {
             render={({ field: { onChange, value } }) => (
               <Select.Root
                 value={value.address}
-                onValueChange={(val) =>
-                  onChange(TOKENS.find((token) => token.address === val))
+                onValueChange={val =>
+                  onChange(TOKENS.find(token => token.address === val))
                 }
               >
-                <Select.Trigger className={S.select}>{value.symbol}</Select.Trigger>
+                <Select.Trigger className={S.select}>
+                  {value.symbol}
+                </Select.Trigger>
 
                 <Select.Content position="popper">
-                  {TOKENS.map((token) => (
+                  {TOKENS.map(token => (
                     <Select.Item key={token.address} value={token.address}>
                       {token.symbol}
                     </Select.Item>
@@ -95,14 +100,16 @@ const CreatePool = () => {
             render={({ field: { onChange, value } }) => (
               <Select.Root
                 value={value.address}
-                onValueChange={(val) =>
-                  onChange(TOKENS.find((token) => token.address === val))
+                onValueChange={val =>
+                  onChange(TOKENS.find(token => token.address === val))
                 }
               >
-                <Select.Trigger className={S.select}>{value.symbol}</Select.Trigger>
+                <Select.Trigger className={S.select}>
+                  {value.symbol}
+                </Select.Trigger>
 
                 <Select.Content position="popper">
-                  {TOKENS.map((token) => (
+                  {TOKENS.map(token => (
                     <Select.Item key={token.address} value={token.address}>
                       {token.symbol}
                     </Select.Item>
@@ -120,8 +127,12 @@ const CreatePool = () => {
             control={control}
             name="fee"
             render={({ field: { value, onChange } }) => (
-              <RadioCards.Root defaultValue="1" columns={"4"} value={value.toString()}>
-                {FEES.map((fee) => (
+              <RadioCards.Root
+                defaultValue="1"
+                columns={'4'}
+                value={value.toString()}
+              >
+                {FEES.map(fee => (
                   <RadioCards.Item
                     key={fee}
                     value={fee.toString()}
@@ -145,13 +156,13 @@ const CreatePool = () => {
                   <Radio
                     name="token"
                     value={token.address}
-                    onChange={(v) => {
+                    onChange={v => {
                       const token = [amountA, amountB].find(
-                        (amount) => amount.token.address === v.target.value
-                      );
+                        amount => amount.token.address === v.target.value
+                      )
 
                       if (token) {
-                        setTokenCurrency(token.token);
+                        setTokenCurrency(token.token)
                       }
                     }}
                   />
@@ -161,8 +172,8 @@ const CreatePool = () => {
             </div>
           </div>
 
-          <TextField.Root placeholder="Min price" {...register("minPrice")} />
-          <TextField.Root placeholder="Max price" {...register("maxPrice")} />
+          <TextField.Root placeholder="Min price" {...register('minPrice')} />
+          <TextField.Root placeholder="Max price" {...register('maxPrice')} />
         </div>
 
         <div>
@@ -170,20 +181,34 @@ const CreatePool = () => {
 
           <TextField.Root
             placeholder={amountA.token.symbol}
-            {...register("amountA.value")}
+            {...register('amountA.value')}
           />
           <TextField.Root
             placeholder={amountB.token.symbol}
-            {...register("amountB.value")}
+            {...register('amountB.value')}
           />
         </div>
 
-        <Button onClick={handleCreatePosition} disabled={loading}>
-          {loading ? "Загрузка" : "Добавить ликвидность"}
-        </Button>
+        {!needApproveA && !needApproveB && (
+          <Button onClick={handleCreatePosition} disabled={loading}>
+            {loading ? 'Загрузка' : 'Добавить ликвидность'}
+          </Button>
+        )}
+
+        {needApproveA && (
+          <Button onClick={approveA} loading={loadingA}>
+            {`Апрувнуть ${amountA.token.symbol}`}
+          </Button>
+        )}
+
+        {needApproveB && (
+          <Button onClick={approveB} loading={loadingB}>
+            {`Апрувнуть ${amountB.token.symbol}`}
+          </Button>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreatePool;
+export default CreatePool

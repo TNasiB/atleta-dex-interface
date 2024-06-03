@@ -8,8 +8,8 @@ import {
 } from 'wagmi/actions'
 
 import { config } from '@/config/wagmi'
-import { erc20abi } from '../abi/erc20.abi'
 import { Token } from '@atleta-chain/sdk-core'
+import { erc20abi } from '@/abi/erc20.abi'
 
 type ApproveDto = {
   spenderAddress: string
@@ -23,20 +23,28 @@ type ApproveDto = {
 export const useApprove = ({ amount, spenderAddress }: ApproveDto) => {
   const { address } = useAccount()
   const [needApprove, setNeedApprove] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const approve = async () => {
-    if (address) {
-      const hash = await writeContract(config, {
-        abi: erc20abi,
-        address: amount.token.address as `0x${string}`,
-        functionName: 'approve',
-        args: [
-          spenderAddress as `0x${string}`,
-          parseUnits(amount.value, amount.token.decimals)
-        ]
-      })
+    try {
+      if (address) {
+        setLoading(true)
 
-      await waitForTransactionReceipt(config, { hash })
+        const parsedAmount = parseUnits(amount.value, amount.token.decimals)
+
+        const hash = await writeContract(config, {
+          abi: erc20abi,
+          address: amount.token.address as `0x${string}`,
+          functionName: 'approve',
+          args: [spenderAddress as `0x${string}`, parsedAmount]
+        })
+
+        await waitForTransactionReceipt(config, { hash })
+        setLoading(false)
+      }
+    } catch (e) {
+      console.error(e)
+      setLoading(false)
     }
   }
 
@@ -50,16 +58,16 @@ export const useApprove = ({ amount, spenderAddress }: ApproveDto) => {
           args: [address, spenderAddress as `0x${string}`]
         })
 
-        console.log({ allowance })
+        console.log(Number(allowance) > Number(amount.value), '123')
 
-        if (allowance < BigInt(amount.value)) {
+        if (Number(allowance) < Number(amount.value)) {
           setNeedApprove(true)
         }
       }
     }
 
     checkApprove()
-  }, [amount, spenderAddress])
+  }, [amount, spenderAddress, amount.value])
 
-  return { needApprove, approve }
+  return { needApprove, approve, loading }
 }

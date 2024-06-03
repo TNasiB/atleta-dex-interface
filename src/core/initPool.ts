@@ -1,50 +1,49 @@
-import { Fee } from "@/config/fees";
-import { positionManagerAbi } from "@/abi/positionManager.abi";
-import { SEPOLIA_POSITION_MANAGER_ADDRESS } from "@/config/addreses";
-import { config } from "@/config/wagmi";
-import { getOrderedTokensWithValue } from "@/utils/getOrderedTokens";
-import { Token } from "@atleta-chain/sdk-core";
-import { encodeSqrtRatioX96 } from "@atleta-chain/v3-sdk";
+import { Fee } from '@/config/fees'
+import { positionManagerAbi } from '@/abi/positionManager.abi'
+import { SEPOLIA_POSITION_MANAGER_ADDRESS } from '@/config/addreses'
+import { config } from '@/config/wagmi'
+import { Token } from '@atleta-chain/sdk-core'
+import { encodeSqrtRatioX96 } from '@atleta-chain/v3-sdk'
 import {
   simulateContract,
   waitForTransactionReceipt,
-  writeContract,
-} from "wagmi/actions";
-import { parseUnits } from "viem";
+  writeContract
+} from 'wagmi/actions'
+import { parseUnits } from 'viem'
 
 type Interface_initPool = {
-  amount1: {
-    token: Token;
-    value: string;
-  };
-  amount2: {
-    token: Token;
-    value: string;
-  };
-  fee: Fee;
-};
+  token0: {
+    token: Token
+    value: string
+  }
+  token1: {
+    token: Token
+    value: string
+  }
+  fee: Fee
+}
 
-export const initPool = async ({ amount1, amount2, fee }: Interface_initPool) => {
-  const [tokenA, tokenB] = getOrderedTokensWithValue([amount1, amount2]);
-
+export const initPool = async ({ token0, token1, fee }: Interface_initPool) => {
   const sqrt = encodeSqrtRatioX96(
-    parseUnits(tokenA.value, tokenA.token.decimals).toString(),
-    parseUnits(tokenB.value, tokenB.token.decimals).toString()
-  );
+    parseUnits(token1.value, token1.token.decimals).toString(),
+    parseUnits(token0.value, token0.token.decimals).toString()
+  )
 
-  const { request: createRequest } = await simulateContract(config, {
+  console.log(sqrt.toString())
+
+  const { request: createRequest, result } = await simulateContract(config, {
     address: SEPOLIA_POSITION_MANAGER_ADDRESS,
     abi: positionManagerAbi,
-    functionName: "createAndInitializePoolIfNecessary",
+    functionName: 'createAndInitializePoolIfNecessary',
     args: [
-      tokenA.token.address as `0x${string}`,
-      tokenB.token.address as `0x${string}`,
+      token0.token.address as `0x${string}`,
+      token1.token.address as `0x${string}`,
       fee,
-      BigInt(sqrt.toString()),
-    ],
-  });
+      BigInt(sqrt.toString())
+    ]
+  })
 
-  const hashCreate = await writeContract(config, createRequest);
+  const hashCreate = await writeContract(config, createRequest)
 
-  await waitForTransactionReceipt(config, { hash: hashCreate });
-};
+  await waitForTransactionReceipt(config, { hash: hashCreate })
+}

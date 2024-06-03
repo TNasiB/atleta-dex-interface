@@ -15,9 +15,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
   'query GetMyNftPositions($origin: Bytes!) {\n  mints(first: 10, where: {origin: $origin}) {\n    id\n    owner\n    amount0\n    sender\n    token0 {\n      symbol\n    }\n    token1 {\n      symbol\n    }\n  }\n}':
     types.GetMyNftPositionsDocument,
-  'query GetPools {\n  pools(first: 20) {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}':
+  'query GetPoolByHash($hash: ID!) {\n  pool(id: $hash) {\n    id\n  }\n}':
+    types.GetPoolByHashDocument,
+  'query GetPools {\n  pools {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}':
     types.GetPoolsDocument,
-  'query GetTokens {\n  tokens {\n    id\n    symbol\n    name\n    decimals\n  }\n}': types.GetTokensDocument
+  'query GetTokens {\n  tokens {\n    id\n    symbol\n    name\n    decimals\n  }\n}':
+    types.GetTokensDocument
 }
 
 /**
@@ -44,8 +47,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'query GetPools {\n  pools(first: 20) {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}'
-): (typeof documents)['query GetPools {\n  pools(first: 20) {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}']
+  source: 'query GetPoolByHash($hash: ID!) {\n  pool(id: $hash) {\n    id\n  }\n}'
+): (typeof documents)['query GetPoolByHash($hash: ID!) {\n  pool(id: $hash) {\n    id\n  }\n}']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: 'query GetPools {\n  pools {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}'
+): (typeof documents)['query GetPools {\n  pools {\n    token0 {\n      name\n      decimals\n      symbol\n      id\n    }\n    token1 {\n      name\n      decimals\n      symbol\n      id\n    }\n    feesUSD\n    feeTier\n    id\n  }\n}']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,5 +1,5 @@
 query GetPools {
-  pools(first: 20) {
+  pools {
     token0 {
       name
       decimals
