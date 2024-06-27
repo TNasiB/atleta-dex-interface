@@ -52,20 +52,20 @@ export const useCreatePosition = () => {
         fee
       })
 
-      const createdPool = await client.query({
-        query: GetPoolByHashDocument,
-        variables: { hash: poolAddress.toLowerCase() }
+      // const createdPool = await client.query({
+      //   query: GetPoolByHashDocument,
+      //   variables: { hash: poolAddress.toLowerCase() }
+      // })
+
+      // console.log(createdPool)
+
+      // if (!createdPool.data.pool) {
+      // }
+      await initPool({
+        token0: tokenA,
+        token1: tokenB,
+        fee: fee
       })
-
-      console.log(createdPool)
-
-      if (!createdPool.data.pool) {
-        await initPool({
-          token0: tokenA,
-          token1: tokenB,
-          fee: fee
-        })
-      }
 
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)

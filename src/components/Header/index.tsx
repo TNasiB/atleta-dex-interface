@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         <Link to="/pools/create">Create pool</Link>
       </div>
 
-      <ConnectKitButton />
+      <ConnectKitButton showBalance showAvatar />
     </header>
   )
 }

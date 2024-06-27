@@ -25,8 +25,8 @@ const CreatePool = () => {
   const { control, register, watch, getValues, handleSubmit } =
     useForm<CreatePoolDto>({
       defaultValues: {
-        amountA: { token: TOKENS[1], value: '0' },
-        amountB: { token: TOKENS[2], value: '0' },
+        amountA: { token: TOKENS[0], value: '0' },
+        amountB: { token: TOKENS[1], value: '0' },
         fee: 10000
       }
     })
@@ -55,7 +55,6 @@ const CreatePool = () => {
   const { createPosition, loading } = useCreatePosition()
 
   const handleCreatePosition = handleSubmit(async data => {
-    await approveA()
     await createPosition({
       token1: data.amountA,
       token2: data.amountB,

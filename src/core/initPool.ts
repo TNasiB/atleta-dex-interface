@@ -24,26 +24,32 @@ type Interface_initPool = {
 }
 
 export const initPool = async ({ token0, token1, fee }: Interface_initPool) => {
-  const sqrt = encodeSqrtRatioX96(
-    parseUnits(token1.value, token1.token.decimals).toString(),
-    parseUnits(token0.value, token0.token.decimals).toString()
-  )
+  try {
+    const sqrt = encodeSqrtRatioX96(
+      parseUnits(token1.value, token1.token.decimals).toString(),
+      parseUnits(token0.value, token0.token.decimals).toString()
+    )
 
-  console.log(sqrt.toString())
+    console.log(sqrt.toString())
 
-  const { request: createRequest, result } = await simulateContract(config, {
-    address: SEPOLIA_POSITION_MANAGER_ADDRESS,
-    abi: positionManagerAbi,
-    functionName: 'createAndInitializePoolIfNecessary',
-    args: [
-      token0.token.address as `0x${string}`,
-      token1.token.address as `0x${string}`,
-      fee,
-      BigInt(sqrt.toString())
-    ]
-  })
+    console.log({ token0, token1, fee })
 
-  const hashCreate = await writeContract(config, createRequest)
+    const { request: createRequest, result } = await simulateContract(config, {
+      address: SEPOLIA_POSITION_MANAGER_ADDRESS,
+      abi: positionManagerAbi,
+      functionName: 'createAndInitializePoolIfNecessary',
+      args: [
+        token0.token.address as `0x${string}`,
+        token1.token.address as `0x${string}`,
+        fee,
+        BigInt(sqrt.toString())
+      ]
+    })
 
-  await waitForTransactionReceipt(config, { hash: hashCreate })
+    const hashCreate = await writeContract(config, createRequest)
+
+    await waitForTransactionReceipt(config, { hash: hashCreate })
+  } catch (e) {
+    console.log(e)
+  }
 }

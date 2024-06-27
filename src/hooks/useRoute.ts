@@ -74,7 +74,7 @@ export const useRoute = () => {
         const route = await router.route(
           test,
           tokenOut,
-          TradeType.EXACT_OUTPUT,
+          TradeType.EXACT_INPUT,
           options
         )
 
