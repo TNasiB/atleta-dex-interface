@@ -1,17 +1,17 @@
 'use client'
 
-import { Token } from '@atleta-chain/sdk-core'
+import { Token, CHAIN_TO_ADDRESSES_MAP, ChainId } from '@atleta-chain/sdk-core'
 import { Button, Radio, RadioCards, Select, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-import { SEPOLIA_POSITION_MANAGER_ADDRESS } from '@/config/addreses'
 import { FEES } from '@/config/fees'
 import { TOKENS } from '@/config/tokens'
 import { useApprove } from '@/hooks/useApprove'
 import { useCreatePosition } from '@/hooks/useCreatePosition'
 
 import S from './createPool.module.scss'
+import { defaultAddresses } from '@/config/addreses'
 
 type CreatePoolDto = {
   amountA: { token: Token; value: string }
@@ -40,7 +40,7 @@ const CreatePool = () => {
     loading: loadingA
   } = useApprove({
     amount: amountA,
-    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS
+    spenderAddress: defaultAddresses.nonfungiblePositionManagerAddress!
   })
   const {
     needApprove: needApproveB,
@@ -48,7 +48,7 @@ const CreatePool = () => {
     loading: loadingB
   } = useApprove({
     amount: amountB,
-    spenderAddress: SEPOLIA_POSITION_MANAGER_ADDRESS
+    spenderAddress: defaultAddresses.nonfungiblePositionManagerAddress!
   })
 
   const [_, setTokenCurrency] = useState<Token>(getValues('amountA.token'))

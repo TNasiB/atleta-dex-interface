@@ -1,6 +1,5 @@
 import { Fee } from '@/config/fees'
 import { positionManagerAbi } from '@/abi/positionManager.abi'
-import { SEPOLIA_POSITION_MANAGER_ADDRESS } from '@/config/addreses'
 import { config } from '@/config/wagmi'
 import { Token } from '@atleta-chain/sdk-core'
 import { encodeSqrtRatioX96 } from '@atleta-chain/v3-sdk'
@@ -10,6 +9,7 @@ import {
   writeContract
 } from 'wagmi/actions'
 import { parseUnits } from 'viem'
+import { defaultAddresses } from '@/config/addreses'
 
 type Interface_initPool = {
   token0: {
@@ -35,7 +35,8 @@ export const initPool = async ({ token0, token1, fee }: Interface_initPool) => {
     console.log({ token0, token1, fee })
 
     const { request: createRequest, result } = await simulateContract(config, {
-      address: SEPOLIA_POSITION_MANAGER_ADDRESS,
+      address:
+        defaultAddresses.nonfungiblePositionManagerAddress! as `0x${string}`,
       abi: positionManagerAbi,
       functionName: 'createAndInitializePoolIfNecessary',
       args: [

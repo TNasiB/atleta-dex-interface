@@ -1,7 +1,3 @@
-import {
-  SEPOLIA_FACTORY_ADDRESS,
-  SEPOLIA_POSITION_MANAGER_ADDRESS
-} from '@/config/addreses'
 import { Percent, Token } from '@atleta-chain/sdk-core'
 import {
   computePoolAddress,
@@ -19,6 +15,7 @@ import { getOrderedTokensWithValue } from '@/utils/getOrderedTokens'
 import { initPool } from '@/core/initPool'
 import { GetPoolByHashDocument } from '@/gql/graphql'
 import { client } from '@/services/gql'
+import { defaultAddresses } from '@/config/addreses'
 // qrtPriceX96 uint160, tick int24, observationIndex uint16, observationCardinality uint16, observationCardinalityNext uint16, feeProtocol uint8, unlocked bool
 export const MAX_FEE_PER_GAS = '100000000000'
 export const MAX_PRIORITY_FEE_PER_GAS = '100000000000'
@@ -46,7 +43,7 @@ export const useCreatePosition = () => {
 
       const [tokenA, tokenB] = getOrderedTokensWithValue([token1, token2])
       const poolAddress = computePoolAddress({
-        factoryAddress: SEPOLIA_FACTORY_ADDRESS,
+        factoryAddress: defaultAddresses.v3CoreFactoryAddress,
         tokenA: tokenA.token,
         tokenB: tokenB.token,
         fee
@@ -149,7 +146,7 @@ export const useCreatePosition = () => {
       // return
 
       const tx = await signer.sendTransaction({
-        to: SEPOLIA_POSITION_MANAGER_ADDRESS,
+        to: defaultAddresses.nonfungiblePositionManagerAddress!,
         data: calldata,
         value: value
         // maxFeePerGas: ethers.utils.parseUnits('100', 'gwei')

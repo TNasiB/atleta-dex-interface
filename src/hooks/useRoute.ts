@@ -17,11 +17,12 @@ import { useCallback } from 'react'
 import { sepolia } from 'viem/chains'
 import { useAccount } from 'wagmi'
 
-import { SEPOLIA_RPC, SEPOLIA_SWAP_ROUTER_ADDRESS } from '@/config/addreses'
+import { SEPOLIA_RPC, defaultAddresses } from '@/config/addreses'
 import { fromReadableAmount } from '@/utils/parseUnitsUni'
 
 import { useEthersProvider } from './useEthersProvider'
 import { MAX_FEE_PER_GAS, MAX_PRIORITY_FEE_PER_GAS } from './useCreatePosition'
+import { ATLETA_OPYMPIA_CHAIN_ID } from '@/config/wagmi'
 
 type Execute = {
   amountIn: number
@@ -46,9 +47,9 @@ export const useRoute = () => {
         }
 
         const router = new AlphaRouter({
-          chainId: sepolia.id,
-          provider: new ethers.providers.JsonRpcProvider(SEPOLIA_RPC)
-          // v2Supported: []
+          chainId: ATLETA_OPYMPIA_CHAIN_ID,
+          provider: new ethers.providers.JsonRpcProvider(SEPOLIA_RPC),
+          v2Supported: []
         })
 
         console.log({ address })
@@ -68,8 +69,6 @@ export const useRoute = () => {
         console.log({ rawTokenAmountIn })
 
         const test = CurrencyAmount.fromRawAmount(tokenIn, rawTokenAmountIn)
-
-        console.log({ test })
 
         const route = await router.route(
           test,
@@ -93,12 +92,14 @@ export const useRoute = () => {
           return
         }
 
+        console.log(route.methodParameters.calldata)
+
         const txRes = await signer.sendTransaction({
           data: route.methodParameters.calldata,
-          to: SEPOLIA_SWAP_ROUTER_ADDRESS,
+          to: defaultAddresses.swapRouter02Address,
           value: route.methodParameters.value,
           from: address,
-          gasLimit: ethers.utils.hexlify(350000),
+          gasLimit: ethers.utils.hexlify(1700000),
           maxFeePerGas: MAX_FEE_PER_GAS,
           maxPriorityFeePerGas: MAX_PRIORITY_FEE_PER_GAS
         })

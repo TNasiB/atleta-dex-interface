@@ -1,38 +1,5 @@
-export const SEPOLIA_RPC =
-  'https://eth-sepolia.g.alchemy.com/v2/0IKzva2Wy9boNMUTnLfFNzbnaI8WnoZb'
+import { CHAIN_TO_ADDRESSES_MAP, ChainId } from '@atleta-chain/sdk-core'
 
-export const SEPOLIA_FACTORY_ADDRESS =
-  '0x3A2d3E0DBa6ddB1401b52c48cd930a2AB4CF7B84'
+export const SEPOLIA_RPC = 'https://testnet-rpc.atleta.network'
 
-export const SEPOLIA_POSITION_MANAGER_ADDRESS =
-  '0xe3D88408dBf5F0a370aA0C5d2E1469fd7ee33311'
-export const SEPOLIA_SWAP_ROUTER_ADDRESS =
-  '0x5687AEcDB1b756C4064357f751E415DE768EcAE4'
-export const SEPOLIA_QUOTER_ADDRESS =
-  '0x899Da3C2C4F3cE7e422d131Cc15103ff6240dA54'
-
-// "v3CoreFactoryAddress":"0x3A2d3E0DBa6ddB1401b52c48cd930a2AB4CF7B84",
-
-// "multicall2Address":"0xd833F12b94C97b738C22B18bCD97E96016934189",
-
-// "proxyAdminAddress":"0xA7Ddca284302215CE65A5769aFDE00a44c4e396C",
-
-// "tickLensAddress":"0x9a69D5f1C9EFfa10FfE3Da1E78407004FB6C1DFB",
-
-// "nftDescriptorLibraryAddressV1_3_0":"0x339a86217f5575aeeaBC3A0DBE23e837a4294A3B",
-
-// "nonfungibleTokenPositionDescriptorAddressV1_3_0":"0x1c6B6b1f9588DDBD645d4Eb8A52030831328A283",
-
-// "descriptorProxyAddress":"0x8B967CCEa49F45E0e48Ef4697F4EB8Bc778d0515",
-
-// "nonfungibleTokenPositionManagerAddress":"0xe3D88408dBf5F0a370aA0C5d2E1469fd7ee33311",
-
-// "v3MigratorAddress":"0xe6912F944a6c63c5c1a14A2A8F10279C3759A911",
-
-// "v3StakerAddress":"0x71843C390B053AFed2b004191d3742d11928e912",
-
-// "quoterV2Address":"0x899Da3C2C4F3cE7e422d131Cc15103ff6240dA54",
-
-// "swapRouter02":"0x5687AEcDB1b756C4064357f751E415DE768EcAE4",
-
-// “swapRouter":"<SEE BELOW>"
+export const defaultAddresses = CHAIN_TO_ADDRESSES_MAP[ChainId.ATLETA_OLYMPIA]

@@ -2,8 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema:
-    'https://api.studio.thegraph.com/query/67019/uniswap-fork/version/latest',
+  schema: 'http://146.190.68.0:8000/subgraphs/name/ianlapham/uniswap-v3',
   documents: 'src/**/*.gql',
   hooks: { afterAllFileWrite: ['prettier --write'] },
   ignoreNoDocuments: true, // for better experience with the watcher

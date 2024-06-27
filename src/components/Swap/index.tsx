@@ -12,7 +12,8 @@ import Input from '@/shared/ui/Input'
 import S from './swap.module.scss'
 import { TOKENS } from '@/config/tokens'
 import { useApprove } from '@/hooks/useApprove'
-import { SEPOLIA_SWAP_ROUTER_ADDRESS } from '@/config/addreses'
+import { defaultAddresses } from '@/config/addreses'
+import { MAX_UINT160 } from '@atleta-chain/smart-order-router'
 
 type SwapData = {
   amount1: { value: string; token: Token }
@@ -31,13 +32,13 @@ const Swap = () => {
   const token2 = watch('amount2.token')
 
   const { approve: approve1 } = useApprove({
-    amount: { token: token1, value: '100000000000000000000' },
-    spenderAddress: SEPOLIA_SWAP_ROUTER_ADDRESS
+    amount: { token: token1, value: MAX_UINT160 },
+    spenderAddress: defaultAddresses.swapRouter02Address!
   })
 
   const { approve: approve2 } = useApprove({
-    amount: { token: token2, value: '100000000000000000000' },
-    spenderAddress: SEPOLIA_SWAP_ROUTER_ADDRESS
+    amount: { token: token2, value: MAX_UINT160 },
+    spenderAddress: defaultAddresses.swapRouter02Address!
   })
 
   const { execute } = useRoute()

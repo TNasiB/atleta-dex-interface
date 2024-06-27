@@ -1,7 +1,7 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 export const client = new ApolloClient({
-  uri: "https://api.studio.thegraph.com/query/67019/uniswap-fork/version/latest",
+  uri: 'http://146.190.68.0:8000/subgraphs/name/ianlapham/uniswap-v3',
   cache: new InMemoryCache(),
-  ssrMode: true,
-});
+  ssrMode: true
+})
