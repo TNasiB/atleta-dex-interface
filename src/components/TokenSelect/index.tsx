@@ -14,6 +14,7 @@ import Spinner from '@/shared/ui/Spinner'
 
 import TokenCard from './TokenCard/TokenCard'
 import S from './TokenSelect.module.scss'
+import { TOKENS } from '@/config/tokens'
 
 type TokenSelectProps = {
   onChange: (token: Token) => void
@@ -33,22 +34,12 @@ const TokenSelect = ({ onChange, value }: TokenSelectProps) => {
   const formattedTokens = useMemo(
     () => [
       // eslint-disable-next-line no-unsafe-optional-chaining
-      ...(data?.tokens ?? []).map(
-        token =>
-          new Token(NETWORK_ID, token.id, Number(token.decimals), token.symbol)
-      ),
-      new Token(
-        NETWORK_ID,
-        '0xD340Ee0c35cd6B891B1b9A9437fFFd8F370CB0cF',
-        18,
-        'TOKEN_1'
-      ),
-      new Token(
-        NETWORK_ID,
-        '0x5ED77c45BE0D8ceD9C729130bf9ce546fb2594f5',
-        18,
-        'TOKEN_2'
-      )
+      // ...(data?.tokens ?? []).map(
+      //   token =>
+      //     new Token(NETWORK_ID, token.id, Number(token.decimals), token.symbol)
+      // ),
+
+      ...TOKENS
     ],
     [data]
   )

@@ -48,11 +48,8 @@ export const useRoute = () => {
 
         const router = new AlphaRouter({
           chainId: ATLETA_OPYMPIA_CHAIN_ID,
-          provider: new ethers.providers.JsonRpcProvider(SEPOLIA_RPC),
-          v2Supported: []
+          provider: new ethers.providers.JsonRpcProvider(SEPOLIA_RPC)
         })
-
-        console.log({ address })
 
         const options: SwapOptionsSwapRouter02 = {
           recipient: address,

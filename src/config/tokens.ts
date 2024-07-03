@@ -2,6 +2,14 @@ import { Token } from '@atleta-chain/sdk-core'
 
 import { NETWORK_ID } from './app'
 
+export enum TokenEnum {
+  TNB,
+  WATLA,
+  USDC,
+  DAI,
+  USDT
+}
+
 export const TOKENS: Token[] = [
   // new Token(
   //   NETWORK_ID,
@@ -46,5 +54,16 @@ export const TOKENS: Token[] = [
     18,
     'USDC'
   ),
-  new Token(NETWORK_ID, '0x22C9955B75C50b5E0Ad73De68F51B9eFb462a9a9', 18, 'DAI')
+  new Token(
+    NETWORK_ID,
+    '0x22C9955B75C50b5E0Ad73De68F51B9eFb462a9a9',
+    18,
+    'DAI'
+  ),
+  new Token(
+    NETWORK_ID,
+    '0xCDa75276918A66D609a55b04570d7b4015A974A0',
+    18,
+    'USDT'
+  )
 ] as const

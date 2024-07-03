@@ -40,6 +40,7 @@ export const useApprove = ({ amount, spenderAddress }: ApproveDto) => {
         })
 
         await waitForTransactionReceipt(config, { hash })
+        await checkApprove()
         setLoading(false)
       }
     } catch (e) {
@@ -48,24 +49,24 @@ export const useApprove = ({ amount, spenderAddress }: ApproveDto) => {
     }
   }
 
-  useEffect(() => {
-    const checkApprove = async () => {
-      if (address) {
-        const allowance = await readContract(config, {
-          abi: erc20abi,
-          address: amount.token.address as `0x${string}`,
-          functionName: 'allowance',
-          args: [address, spenderAddress as `0x${string}`]
-        })
+  const checkApprove = async () => {
+    if (address) {
+      const allowance = await readContract(config, {
+        abi: erc20abi,
+        address: amount.token.address as `0x${string}`,
+        functionName: 'allowance',
+        args: [address, spenderAddress as `0x${string}`]
+      })
 
-        console.log(Number(allowance) > Number(amount.value), '123')
-
-        if (Number(allowance) < Number(amount.value)) {
-          setNeedApprove(true)
-        }
+      if (Number(allowance) < Number(amount.value)) {
+        setNeedApprove(true)
+      } else {
+        setNeedApprove(false)
       }
     }
+  }
 
+  useEffect(() => {
     checkApprove()
   }, [amount, spenderAddress, amount.value])
 

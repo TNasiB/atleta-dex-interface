@@ -11,6 +11,7 @@ const Header: React.FC = () => {
         <Link to="/pools">Pools</Link>
         <Link to="/swap">Swap</Link>
         <Link to="/pools/create">Create pool</Link>
+        <Link to="/pools/createv2">Create pool v2</Link>
       </div>
 
       <ConnectKitButton showBalance showAvatar />

@@ -31,37 +31,29 @@ const Swap = () => {
   const token1 = watch('amount1.token')
   const token2 = watch('amount2.token')
 
-  const { approve: approve1 } = useApprove({
+  const { approve: approve1, needApprove: needApprove1 } = useApprove({
     amount: { token: token1, value: MAX_UINT160 },
     spenderAddress: defaultAddresses.swapRouter02Address!
   })
 
-  const { approve: approve2 } = useApprove({
+  const { approve: approve2, needApprove: needApprove2 } = useApprove({
     amount: { token: token2, value: MAX_UINT160 },
     spenderAddress: defaultAddresses.swapRouter02Address!
   })
 
   const { execute } = useRoute()
 
-  // watch(async (data) => {
-  //   const tokenA = data.amount1?.token?.address as `0x${string}`;
-  //   const tokenB = data.amount2?.token?.address as `0x${string}`;
-
-  //   if (tokenA && tokenB && data.amount1?.token && data.amount2?.token) {
-  //     execute({
-  //       amountIn: 10,
-  //       tokenIn: data.amount1?.token,
-  //       tokenOut: data.amount2.token,
-  //     });
-  //   }
-  // });
-
   const handleSwap = handleSubmit(async data => {
     const tokenA = data.amount1?.token?.address as `0x${string}`
     const tokenB = data.amount2?.token?.address as `0x${string}`
 
-    await approve1()
-    await approve2()
+    if (needApprove1) {
+      await approve1()
+    }
+
+    if (needApprove2) {
+      await approve2()
+    }
 
     if (tokenA && tokenB && data.amount1?.token && data.amount2?.token) {
       execute({

@@ -15,6 +15,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as TestIndexImport } from './routes/test/index'
 import { Route as SwapIndexImport } from './routes/swap/index'
 import { Route as PoolsIndexImport } from './routes/pools/index'
+import { Route as PoolsCreatev2IndexImport } from './routes/pools/createv2/index'
 import { Route as PoolsCreateIndexImport } from './routes/pools/create/index'
 
 // Create/Update Routes
@@ -36,6 +37,11 @@ const SwapIndexRoute = SwapIndexImport.update({
 
 const PoolsIndexRoute = PoolsIndexImport.update({
   path: '/pools/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PoolsCreatev2IndexRoute = PoolsCreatev2IndexImport.update({
+  path: '/pools/createv2/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -83,6 +89,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PoolsCreateIndexImport
       parentRoute: typeof rootRoute
     }
+    '/pools/createv2/': {
+      id: '/pools/createv2/'
+      path: '/pools/createv2'
+      fullPath: '/pools/createv2'
+      preLoaderRoute: typeof PoolsCreatev2IndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -94,6 +107,7 @@ export const routeTree = rootRoute.addChildren({
   SwapIndexRoute,
   TestIndexRoute,
   PoolsCreateIndexRoute,
+  PoolsCreatev2IndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -108,7 +122,8 @@ export const routeTree = rootRoute.addChildren({
         "/pools/",
         "/swap/",
         "/test/",
-        "/pools/create/"
+        "/pools/create/",
+        "/pools/createv2/"
       ]
     },
     "/": {
@@ -125,6 +140,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/pools/create/": {
       "filePath": "pools/create/index.tsx"
+    },
+    "/pools/createv2/": {
+      "filePath": "pools/createv2/index.tsx"
     }
   }
 }
