@@ -11,7 +11,7 @@ import { getPairAddress } from './core/getPairAddress'
 import { pairv2Abi } from '@/abi/pairv2.abi'
 import { createAndInit } from './core/createAndInit'
 
-const token1 = TOKENS[TokenEnum.DAI]
+const token1 = TOKENS[TokenEnum.USDT]
 const token2 = TOKENS[TokenEnum.WATLA]
 
 const CreatePoolV2: React.FC = () => {
